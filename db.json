@@ -1,0 +1,53 @@
+{
+  "votes": [
+    {
+      "username": "itsbarrex",
+      "vote": "Comic Sans BOLD",
+      "option": 2
+    },
+    {
+      "username": "codingn",
+      "vote": "Comic Sans",
+      "option": 1
+    },
+    {
+      "username": "hwalk01",
+      "vote": "Comic Sans BOLD",
+      "option": 2
+    },
+    {
+      "username": "shanksredhair43",
+      "vote": "Comic Sans",
+      "option": 1
+    }
+  ],
+  "learn": [
+    {
+      "username": "codingn",
+      "link": "https://github.com/inancgumus/learngo",
+      "description": "really good go resource 1000% recommend this one"
+    },
+    {
+      "username": "hwalk01",
+      "link": "www.stackbricks.app",
+      "description": "local db hosting thx codingn"
+    },
+    {
+      "username": "harryelysian",
+      "link": "https://www.twitch.tv/hwalk01",
+      "description": ""
+    }
+  ],
+  "totalVotes": [
+    {
+      "voteOption": 1,
+      "option": "Comic Sans",
+      "total": 7
+    },
+    {
+      "voteOption": 2,
+      "option": "Comic Sans BOLD",
+      "total": 3
+    }
+  ]
+}
