@@ -1,14 +1,6 @@
-//TODO;
-// Import both voting options - DONE
-// Automatic Refresh -
-  // Idea, I need to host a html page locally when the app is running to serve
-  // that to OBS for rendering of the votes
+let container = $(".main-container");
 
-// Visual Styling
-
-let container;
-container = $(".main-container");
-// This needs to fire on message recieved
+function fetchDataAndUpdateHTML() {
   fetch("db.json")
     .then((response) => response.json())
     .then((data) =>
@@ -19,3 +11,10 @@ container = $(".main-container");
       )
     )
     .catch((error) => console.log(error));
+}
+
+// Call the function initially
+fetchDataAndUpdateHTML();
+
+// Periodically check for updates
+setInterval(fetchDataAndUpdateHTML, 5000); // Update every 5 seconds

@@ -1,18 +1,7 @@
-import express from "express";
-import { join, dirname } from "node:path";
-import { fileURLToPath } from "node:url";
-
-import { Low } from "lowdb";
-import { JSONFile } from "lowdb/node";
-
+import { updateVotes } from "./updateVotes.mjs";
+import db from "./db.mjs";
 import tmi from "tmi.js";
 import "dotenv/config";
-
-const app = express();
-const port = process.env.PORT || 3000;
-app.listen(port, () => {
-  console.log("server is running at port number 3000");
-});
 
 const client = new tmi.Client({
   // with debug flag on, we can see more verbose console commands
@@ -23,32 +12,10 @@ const client = new tmi.Client({
   },
   channels: ["hwalk01"],
 });
+
 client.connect();
 
-// db.json file path
-const __dirname = dirname(fileURLToPath(import.meta.url));
-const file = join(__dirname, "db.json");
-
-// Configure lowdb to write data to JSON file
-const adapter = new JSONFile(file);
-const defaultData = { votes: [], learn: [], totalVotes: [] };
-const db = new Low(adapter, defaultData);
-
-// Read data from JSON file, this will set db.data content
-// If JSON file doesn't exist, defaultData is used instead
-await db.read();
-
 const { votes, learn } = db.data;
-
-const updateVotes = () => {
-  console.log('updateVotes Called', db.data.totalVotes[0].total)
-  
-  app.get("/", (req, res) => {
-    res.send(`<h1>Which font should we use?</h1>
-      <h2>${db.data.totalVotes[0].option}: ${db.data.totalVotes[0].total}</h2>
-      <h2>${db.data.totalVotes[1].option}: ${db.data.totalVotes[1].total}</h2>`);
-  });
-}
 
 const sumVotes = (subCommand, option) => {
   // read totalVotes totals
@@ -75,7 +42,7 @@ const sumVotes = (subCommand, option) => {
 };
 
 client.on("connected", async (channel, tags) => {
-  updateVotes()
+  updateVotes(db);
 });
 
 client.on("message", async (channel, tags, message, self) => {
@@ -123,7 +90,7 @@ client.on("message", async (channel, tags, message, self) => {
           });
           sumVotes(subCommand, optionOne);
           await db.write();
-          updateVotes();
+          updateVotes(db);
           console.log("Update Votes");
           return;
         }
@@ -138,6 +105,7 @@ client.on("message", async (channel, tags, message, self) => {
             option: 2,
           });
           sumVotes(subCommand, optionTwo);
+          updateVotes(db);
           await db.write();
           return;
         }

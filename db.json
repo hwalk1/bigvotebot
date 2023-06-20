@@ -1,17 +1,7 @@
 {
   "votes": [
     {
-      "username": "itsbarrex",
-      "vote": "Comic Sans BOLD",
-      "option": 2
-    },
-    {
       "username": "codingn",
-      "vote": "Comic Sans",
-      "option": 1
-    },
-    {
-      "username": "shanksredhair43",
       "vote": "Comic Sans",
       "option": 1
     },
@@ -42,12 +32,12 @@
     {
       "voteOption": 1,
       "option": "Comic Sans",
-      "total": 11
+      "total": 17
     },
     {
       "voteOption": 2,
       "option": "Comic Sans BOLD",
-      "total": 3
+      "total": 4
     }
   ]
 }
