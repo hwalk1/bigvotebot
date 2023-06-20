@@ -1,3 +1,4 @@
+import express from "express";
 import { join, dirname } from "node:path";
 import { fileURLToPath } from "node:url";
 
@@ -6,6 +7,12 @@ import { JSONFile } from "lowdb/node";
 
 import tmi from "tmi.js";
 import "dotenv/config";
+
+const app = express();
+const port = process.env.PORT || 3000;
+app.listen(port, () => {
+  console.log("server is running at port number 3000");
+});
 
 const client = new tmi.Client({
   // with debug flag on, we can see more verbose console commands
@@ -33,6 +40,16 @@ await db.read();
 
 const { votes, learn } = db.data;
 
+const updateVotes = () => {
+  console.log('updateVotes Called', db.data.totalVotes[0].total)
+  
+  app.get("/", (req, res) => {
+    res.send(`<h1>Which font should we use?</h1>
+      <h2>${db.data.totalVotes[0].option}: ${db.data.totalVotes[0].total}</h2>
+      <h2>${db.data.totalVotes[1].option}: ${db.data.totalVotes[1].total}</h2>`);
+  });
+}
+
 const sumVotes = (subCommand, option) => {
   // read totalVotes totals
   const voteOption = parseInt(subCommand);
@@ -56,6 +73,10 @@ const sumVotes = (subCommand, option) => {
     db.data.totalVotes.push(voteObj);
   }
 };
+
+client.on("connected", async (channel, tags) => {
+  updateVotes()
+});
 
 client.on("message", async (channel, tags, message, self) => {
   if (self || !message.startsWith("!")) return;
