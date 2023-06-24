@@ -1,12 +1,12 @@
-import express from "express";
+// import express from "express";
 
-const app = express();
-const port = process.env.PORT || 3000;
-app.listen(port, () => {
-  console.log("server is running at port number 3000");
-});
+// const app = express();
+// const port = process.env.PORT || 3000;
+// app.listen(port, () => {
+//   console.log("server is running at port number 3000");
+// });
 
-app.use(express.static("public"));
+// app.use(express.static("public"));
 
 export const updateVotes = (db) => {
   console.log("updateVotes Called", db.data.totalVotes[0].total);
