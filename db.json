@@ -7,7 +7,17 @@
     },
     {
       "username": "hwalk01",
-      "vote": "Comic Sans",
+      "vote": "GitHub",
+      "option": 1
+    },
+    {
+      "username": "oddlytugs",
+      "vote": "GitLab",
+      "option": 2
+    },
+    {
+      "username": "shanksredhair43",
+      "vote": "GitHub",
       "option": 1
     }
   ],
@@ -31,13 +41,13 @@
   "totalVotes": [
     {
       "voteOption": 1,
-      "option": "Comic Sans",
-      "total": 17
+      "option": "GitHub",
+      "total": 2
     },
     {
       "voteOption": 2,
-      "option": "Comic Sans BOLD",
-      "total": 4
+      "option": "GitLab",
+      "total": 1
     }
   ]
 }

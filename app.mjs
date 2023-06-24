@@ -41,33 +41,25 @@ const sumVotes = (subCommand, option) => {
   }
 };
 
-client.on("connected", async (channel, tags) => {
-  updateVotes(db);
-});
-
 client.on("message", async (channel, tags, message, self) => {
   if (self || !message.startsWith("!")) return;
 
   const args = message.slice(1).split(" ");
   const command = args.shift().toLowerCase();
 
-  // console.log("message", message) // !vote test 123
-  // console.log('args', args) // [ 'test', '123' ]
-  // console.log('command', command)
+  const optionOne = "GitHub";
+  const optionTwo = "GitLab";
 
   const alreadyVoted = db.data.votes.find(
     (vote) => vote.username === tags.username
   );
-
-  const optionOne = "Comic Sans";
-  const optionTwo = "Comic Sans BOLD";
 
   switch (command) {
     case "vote": {
       if (args.length === 0) {
         client.say(
           channel,
-          `@${tags.username}, hey there you can vote on a font to use for the project, type !vote 1 or 2`
+          `@${tags.username}, hey there you can vote to change the direction of the project, type !vote 1 or 2`
         );
         return;
       }
@@ -82,30 +74,27 @@ client.on("message", async (channel, tags, message, self) => {
       }
       switch (subCommand) {
         case "1": {
-          client.say(channel, `@${tags.username} You voted for Comic Sans`);
+          client.say(channel, `@${tags.username} You voted for GitHub`);
           votes.push({
             username: `${tags.username}`,
-            vote: "Comic Sans",
+            vote: "GitHub",
             option: 1,
           });
           sumVotes(subCommand, optionOne);
           await db.write();
-          updateVotes(db);
+          // updateVotes(db);
           console.log("Update Votes");
           return;
         }
         case "2": {
-          client.say(
-            channel,
-            `@${tags.username} You voted for Comic Sans Bold`
-          );
+          client.say(channel, `@${tags.username} You voted for GitLab`);
           votes.push({
             username: `${tags.username}`,
-            vote: "Comic Sans BOLD",
+            vote: "GitLab",
             option: 2,
           });
           sumVotes(subCommand, optionTwo);
-          updateVotes(db);
+          // updateVotes(db);
           await db.write();
           return;
         }
