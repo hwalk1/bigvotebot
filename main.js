@@ -5,7 +5,7 @@ function fetchDataAndUpdateHTML() {
     .then((response) => response.json())
     .then((data) =>
       container.html(
-        `<h1>Which Repo?</h1>
+        `<h1>What should we use to build?</h1>
         <h2>${data.totalVotes[0].option}: ${data.totalVotes[0].total}</h2>
         <h2>${data.totalVotes[1].option}: ${data.totalVotes[1].total}</h2>`
       )

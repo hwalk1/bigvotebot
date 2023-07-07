@@ -47,8 +47,8 @@ client.on("message", async (channel, tags, message, self) => {
   const args = message.slice(1).split(" ");
   const command = args.shift().toLowerCase();
 
-  const optionOne = "GitHub";
-  const optionTwo = "GitLab";
+  const optionOne = "JavaScript";
+  const optionTwo = "TypeScript";
 
   const alreadyVoted = db.data.votes.find(
     (vote) => vote.username === tags.username
@@ -74,10 +74,10 @@ client.on("message", async (channel, tags, message, self) => {
       }
       switch (subCommand) {
         case "1": {
-          client.say(channel, `@${tags.username} You voted for GitHub`);
+          client.say(channel, `@${tags.username} You voted for ${optionOne}`);
           votes.push({
             username: `${tags.username}`,
-            vote: "GitHub",
+            vote: optionOne,
             option: 1,
           });
           sumVotes(subCommand, optionOne);
@@ -87,10 +87,10 @@ client.on("message", async (channel, tags, message, self) => {
           return;
         }
         case "2": {
-          client.say(channel, `@${tags.username} You voted for GitLab`);
+          client.say(channel, `@${tags.username} You voted for ${optionTwo}`);
           votes.push({
             username: `${tags.username}`,
-            vote: "GitLab",
+            vote: optionTwo,
             option: 2,
           });
           sumVotes(subCommand, optionTwo);
